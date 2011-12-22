@@ -36,27 +36,47 @@ class Content_Parts {
 		if ( !isset( $post ) )
 			return;
 		
-		$content = $post->post_content;
+		$content_parts = $this->split_content_parts( $post->post_content );
+		$num_content_parts = count( $content_parts );
+	}
+	
+	/**
+	 * Split Content Parts
+	 */
+	function split_content_parts( $content ) {
 		if ( strpos( $content, '<!--contentpartdivider-->' ) ) {
-			$content = str_replace("\n<!--contentpartdivider-->\n", '<!--contentpartdivider-->', $content);
-			$content = str_replace("\n<!--contentpartdivider-->", '<!--contentpartdivider-->', $content);
-			$content = str_replace("<!--contentpartdivider-->\n", '<!--contentpartdivider-->', $content);
-			$content_parts = explode('<!--contentpartdivider-->', $content);
-			$num_content_parts = count( $content_parts );
+			$content = str_replace( "\n<!--contentpartdivider-->\n", '<!--contentpartdivider-->', $content );
+			$content = str_replace( "\n<!--contentpartdivider-->", '<!--contentpartdivider-->', $content );
+			$content = str_replace( "<!--contentpartdivider-->\n", '<!--contentpartdivider-->', $content );
+			$content_parts = explode( '<!--contentpartdivider-->', $content );
 		} else {
-			$content_parts = array( $post->post_content );
-			$num_content_parts = 1;
+			$content_parts = array( $content );
 		}
+		return $content_parts;
 	}
 	
 	/**
 	 * The Content Part
-	 * Displays the content of a paged page.
+	 * Outputs the content part.
 	 */
-	function the_content_part( $page = 1, $before = '', $after = '' ) {
+	function the_content_part( $page = 1, $args = null, $deprecated = '' ) {
 		$output = get_the_content_part( $page );
 		if ( !empty( $output ) ) {
-			echo $before . $output . $after;
+			// Deprecate multiple args and move to $args array
+			if ( is_array( $args ) ) {
+				$defaults = array(
+					'before' => '',
+					'after'  => ''
+				);
+			} else {
+				// @todo Add deprecated message
+				$defaults = array(
+					'before' => $args,
+					'after'  => $deprecated
+				);
+			}
+			$args = wp_parse_args( $args, $defaults );
+			echo $args['before'] . $output . $args['after'];
 		}
 	}
 	
@@ -143,9 +163,9 @@ global $num_content_parts, $content_parts, $post;
 $Content_Parts = new Content_Parts();
 
 // The Content Part
-function the_content_part( $page = 1, $before = '', $after = '' ) {
+function the_content_part( $page = 1, $args = null, $deprecated = '' ) {
 	global $Content_Parts;
-	$Content_Parts->the_content_part( $page, $before, $after );
+	$Content_Parts->the_content_part( $page, $args, $deprecated );
 }
 
 // Get The Content Part
