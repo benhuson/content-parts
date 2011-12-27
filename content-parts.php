@@ -19,6 +19,7 @@ class Content_Parts {
 	 */
 	function Content_Parts() {
 		add_action( 'wp', array( $this, 'content_parts_query_vars' ) );
+		// @todo Maybe also hook onto the_post?
 		
 		// Admin Includes
 		if ( is_admin() ) {
@@ -60,20 +61,20 @@ class Content_Parts {
 	 * Outputs the content part.
 	 */
 	function the_content_part( $page = 1, $args = null, $deprecated = '' ) {
-		$output = get_the_content_part( $page );
+		$defaults = array(
+			'post_id' => null,
+			'before'  => '',
+			'after'   => ''
+		);
+		// Deprecate multiple args and move to $args array
+		// @todo Add deprecated message
+		if ( !is_array( $args ) && $args != null ) {
+			$defaults['before'] = $args;
+			$defaults['after']  = $deprecated;
+		}
+		$args = wp_parse_args( $args, $defaults );
+		$output = get_the_content_part( $page, $args );
 		if ( !empty( $output ) ) {
-			$defaults = array(
-				'post_id' => null,
-				'before'  => '',
-				'after'   => ''
-			);
-			// Deprecate multiple args and move to $args array
-			// @todo Add deprecated message
-			if ( !is_array( $args ) && $args != null ) {
-				$defaults['before'] = $args;
-				$defaults['after']  = $deprecated;
-			}
-			$args = wp_parse_args( $args, $defaults );
 			echo $args['before'] . $output . $args['after'];
 		}
 	}
@@ -83,11 +84,10 @@ class Content_Parts {
 	 * Returns the content of a paged page.
 	 */
 	function get_the_content_part( $page = 1, $args = null ) {
-		global $content_parts;
-		$defaults = array(
+		$args = wp_parse_args( $args, array(
 			'post_id' => null
-		);
-		$args = wp_parse_args( $args, $defaults );
+		) );
+		$content_parts = $this->get_content_parts( $args );
 		$page = absint( $page );
 		if ( $page > 0 && $page <= count( $content_parts ) ) {
 			$content = force_balance_tags( $content_parts[$page - 1] );
@@ -102,17 +102,14 @@ class Content_Parts {
 	 * Displays all content of a paged page.
 	 */
 	function the_content_parts( $args = null ) {
-		global $content_parts;
-	
-		$defaults = array(
+		$content_parts = $this->get_content_parts( $args );
+		$pargs = wp_parse_args( $args, array(
 			'post_id' => null,
 			'before'  => '',
 			'after'   => '',
 			'start'   => 1,
 			'limit'   => 0
-		);
-		$pargs = wp_parse_args( $args, $defaults );
-		
+		) );
 		$pargs['start'] = absint( $pargs['start'] );
 		if ( $pargs['start'] <= 0 )
 			$pargs['start'] = 1;
@@ -134,11 +131,10 @@ class Content_Parts {
 	 * Returns an array of the content of a paged page.
 	 */
 	function get_the_content_parts( $args = null ) {
-		global $content_parts;
-		$defaults = array(
+		$args = wp_parse_args( $args, array(
 			'post_id' => null
-		);
-		$args = wp_parse_args( $args, $defaults );
+		) );
+		$content_parts = $this->get_content_parts( $args );
 		return $content_parts;
 	}
 	
@@ -147,11 +143,10 @@ class Content_Parts {
 	 * Returns true/false depending if there are multiple content parts.
 	 */
 	function has_content_parts( $args = null ) {
-		global $content_parts;
-		$defaults = array(
+		$args = wp_parse_args( $args, array(
 			'post_id' => null
-		);
-		$args = wp_parse_args( $args, $defaults );
+		) );
+		$content_parts = $this->get_content_parts( $args );
 		if ( count( $content_parts ) > 1 ) {
 			return true;
 		}
@@ -163,12 +158,26 @@ class Content_Parts {
 	 * Returns count of available content parts.
 	 */
 	function count_content_parts( $args = null ) {
-		global $content_parts;
-		$defaults = array(
+		$args = wp_parse_args( $args, array(
 			'post_id' => null
-		);
-		$args = wp_parse_args( $args, $defaults );
+		) );
+		$content_parts = $this->get_content_parts( $args );
 		return count( $content_parts );
+	}
+	
+	/**
+	 * Get Content Parts
+	 */
+	function get_content_parts( $args = null ) {
+		global $content_parts;
+		$args = wp_parse_args( $args, array(
+			'post_id' => null
+		) );
+		if ( absint( $args['post_id'] ) > 0 ) {
+			$post = get_post( $args['post_id'] );
+			return $this->split_content_parts( $post->post_content );
+		}
+		return $content_parts;
 	}
 
 }
