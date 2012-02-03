@@ -4,7 +4,7 @@
 Plugin Name: Content Parts
 Plugin URI: http://www.benhuson.co.uk/wordpress-plugins/content-parts/
 Description: Divide your post content into sections.
-Version: 1.2
+Version: 1.3
 Author: Ben Huson
 Author URI: http://www.benhuson.co.uk
 License: GPL
