@@ -3,8 +3,8 @@ Contributors: husobj
 Donate link: http://www.benhuson.co.uk/wordpress-plugins/content-parts/
 Tags: content, layout, the_content
 Requires at least: 3.0
-Tested up to: 3.3
-Stable tag: 1.2
+Tested up to: 3.3.1
+Stable tag: 1.3
 
 Divide your post content into sections and show them in different places of your theme templates.
 
@@ -27,6 +27,12 @@ If you are not performing an automatic upgrade, deactivate and reactivate the pl
 For full details how to implement this plugin visit the [Content Parts plugin page](http://www.benhuson.co.uk/wordpress-plugins/content-parts/).
 
 == Changelog ==
+
+= Content Parts 1.3 =
+
+* All functions can now be passed an array of parameters.
+* Deprecate the_content_part() multiple args - now expects an array.
+* Moved code to a class structure.
 
 = Content Parts 1.2 =
 
