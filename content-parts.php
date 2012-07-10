@@ -4,7 +4,7 @@
 Plugin Name: Content Parts
 Plugin URI: http://www.benhuson.co.uk/wordpress-plugins/content-parts/
 Description: Divide your post content into sections.
-Version: 1.3
+Version: 1.3-dev
 Author: Ben Huson
 Author URI: http://www.benhuson.co.uk
 License: GPL
@@ -73,9 +73,12 @@ class Content_Parts {
 			$defaults['after']  = $deprecated;
 		}
 		$args = wp_parse_args( $args, $defaults );
+		$my_args = apply_filters( 'content_part_args', $args, $page );
 		$output = get_the_content_part( $page, $args );
+		$before = str_replace( '%%part%%', $page, $my_args['before'] );
+		$after = str_replace( '%%part%%', $page, $my_args['after'] );
 		if ( !empty( $output ) ) {
-			echo $args['before'] . $output . $args['after'];
+			echo $before . $output . $after;
 		}
 	}
 	
@@ -120,7 +123,10 @@ class Content_Parts {
 			if ( $count >= $pargs['start'] && ( $pargs['limit'] == 0 || $count < $pargs['start'] + $pargs['limit']  ) ) {
 				$content = force_balance_tags( $page );
 				$content = apply_filters( 'the_content', $content );
-				echo $pargs['before'] . $content . $pargs['after'];
+				$my_args = apply_filters( 'content_part_args', $pargs, $count );
+				$before = str_replace( '%%part%%', $count, $my_args['before'] );
+				$after = str_replace( '%%part%%', $count, $my_args['after'] );
+				echo $before . $content . $after;
 			}
 			$count++;
 		}
