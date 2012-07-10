@@ -1,12 +1,12 @@
 === Content Parts  ===
 Contributors: husobj
 Donate link: http://www.benhuson.co.uk/wordpress-plugins/content-parts/
-Tags: content, layout, the_content
+Tags: content, layout, the_content, templates, theme, editor
 Requires at least: 3.0
-Tested up to: 3.3.1
-Stable tag: 1.3
+Tested up to: 3.4.1
+Stable tag: 1.4
 
-Divide your post content into sections and show them in different places of your theme templates.
+Divide your post content into parts that you can show in different areas of your theme templates.
 
 == Description ==
 If you want to spice up your theme layouts this plugin will allow you to show different parts of your content in different area of your theme templates - break out of a single column of content.
@@ -27,6 +27,12 @@ If you are not performing an automatic upgrade, deactivate and reactivate the pl
 For full details how to implement this plugin visit the [Content Parts plugin page](http://www.benhuson.co.uk/wordpress-plugins/content-parts/).
 
 == Changelog ==
+
+= Content Parts 1.4 =
+
+* Automatically make content parts work when 'in the loop'.
+* Added %%part%% placeholder to before/after strings to replace with content part index.
+* Add content_part_args filter.
 
 = Content Parts 1.3 =
 
