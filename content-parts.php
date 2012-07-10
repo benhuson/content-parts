@@ -34,7 +34,7 @@ class Content_Parts {
 	function content_parts_query_vars() {
 		global $num_content_parts, $content_parts, $post;
 		
-		if ( !isset( $post ) )
+		if ( ! isset( $post ) )
 			return;
 		
 		$content_parts = $this->split_content_parts( $post->post_content );
@@ -68,7 +68,7 @@ class Content_Parts {
 		);
 		// Deprecate multiple args and move to $args array
 		// @todo Add deprecated message
-		if ( !is_array( $args ) && $args != null ) {
+		if ( ! is_array( $args ) && $args != null ) {
 			$defaults['before'] = $args;
 			$defaults['after']  = $deprecated;
 		}
@@ -77,7 +77,7 @@ class Content_Parts {
 		$output = get_the_content_part( $page, $args );
 		$before = str_replace( '%%part%%', $page, $my_args['before'] );
 		$after = str_replace( '%%part%%', $page, $my_args['after'] );
-		if ( !empty( $output ) ) {
+		if ( ! empty( $output ) ) {
 			echo $before . $output . $after;
 		}
 	}
@@ -188,8 +188,7 @@ class Content_Parts {
 
 }
 
-global $Content_Parts;
-global $num_content_parts, $content_parts, $post;
+global $Content_Parts, $num_content_parts, $content_parts, $post;
 $Content_Parts = new Content_Parts();
 
 // The Content Part
