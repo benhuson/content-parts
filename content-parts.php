@@ -3,7 +3,7 @@
 /*
 Plugin Name: Content Parts
 Plugin URI: http://www.benhuson.co.uk/wordpress-plugins/content-parts/
-Description: Divide your post content into sections.
+Description: Divide your post content into parts that you can use in different areas of your theme templates.
 Version: 1.3-dev
 Author: Ben Huson
 Author URI: http://www.benhuson.co.uk
@@ -13,13 +13,14 @@ License: GPL
 class Content_Parts {
 	
 	var $editor = '';
+	var $content_parts;
 	
 	/**
 	 * Constructor
 	 */
 	function Content_Parts() {
 		add_action( 'wp', array( $this, 'content_parts_query_vars' ) );
-		// @todo Maybe also hook onto the_post?
+		add_action( 'the_post', array( $this, 'the_post' ) );
 		
 		// Admin Includes
 		if ( is_admin() ) {
@@ -29,20 +30,39 @@ class Content_Parts {
 	}
 	
 	/**
-	 * content_parts_query_vars
+	 * Set up the current post
+	 *
+	 * Populate the content parts variable when 'in the loop'.
+	 *
+	 * @param object $post Post object.
+	 */
+	function the_post( $post ) {
+		$this->content_parts = $this->split_content_parts( $post->post_content );
+	}
+	
+	/**
+	 * WordPress Ready
+	 *
+	 * Populate the content parts variable when WordPress is ready.
+	 * The will be overridden when the loop is initiated but means you can
+	 * potential use content part before the loop starts.
 	 */
 	function content_parts_query_vars() {
-		global $num_content_parts, $content_parts, $post;
+		global $post;
 		
 		if ( ! isset( $post ) )
 			return;
 		
-		$content_parts = $this->split_content_parts( $post->post_content );
-		$num_content_parts = count( $content_parts );
+		$this->content_parts = $this->split_content_parts( $post->post_content );
 	}
 	
 	/**
 	 * Split Content Parts
+	 *
+	 * Split the content into an array of content parts.
+	 *
+	 * @param string $content Post content.
+	 * @return array Content parts array.
 	 */
 	function split_content_parts( $content ) {
 		if ( strpos( $content, '<!--contentpartdivider-->' ) ) {
@@ -58,7 +78,12 @@ class Content_Parts {
 	
 	/**
 	 * The Content Part
-	 * Outputs the content part.
+	 *
+	 * Outputs a single content part.
+	 *
+	 * @param int $page Content part index.
+	 * @param array $args array( $post_id => null, $before => '', $after => '' ).
+	 * @param string $deprecated Used to be the 'after' string.
 	 */
 	function the_content_part( $page = 1, $args = null, $deprecated = '' ) {
 		$defaults = array(
@@ -66,15 +91,17 @@ class Content_Parts {
 			'before'  => '',
 			'after'   => ''
 		);
+		
 		// Deprecate multiple args and move to $args array
 		// @todo Add deprecated message
 		if ( ! is_array( $args ) && $args != null ) {
 			$defaults['before'] = $args;
 			$defaults['after']  = $deprecated;
 		}
+		
 		$args = wp_parse_args( $args, $defaults );
 		$my_args = apply_filters( 'content_part_args', $args, $page );
-		$output = get_the_content_part( $page, $args );
+		$output = $this->get_the_content_part( $page, $args );
 		$before = str_replace( '%%part%%', $page, $my_args['before'] );
 		$after = str_replace( '%%part%%', $page, $my_args['after'] );
 		if ( ! empty( $output ) ) {
@@ -84,7 +111,12 @@ class Content_Parts {
 	
 	/**
 	 * Get The Content Part
-	 * Returns the content of a paged page.
+	 *
+	 * Gets the content for a single content part.
+	 *
+	 * @param int $page Content part index.
+	 * @param array $args array( $post_id => null ).
+	 * @return string The content part HTML.
 	 */
 	function get_the_content_part( $page = 1, $args = null ) {
 		$args = wp_parse_args( $args, array(
@@ -102,7 +134,10 @@ class Content_Parts {
 	
 	/**
 	 * The Content Parts
-	 * Displays all content of a paged page.
+	 *
+	 * Displays multiple content parts.
+	 *
+	 * @param array $args array( $post_id => null, $before => '', $after => '', $start => 1, $limit => 0 ).
 	 */
 	function the_content_parts( $args = null ) {
 		$content_parts = $this->get_content_parts( $args );
@@ -134,19 +169,26 @@ class Content_Parts {
 	
 	/**
 	 * Get The Content Parts
-	 * Returns an array of the content of a paged page.
+	 *
+	 * Returns an array of all the content parts.
+	 *
+	 * @param array $args array( $post_id => null ).
+	 * @return array Content parts.
 	 */
 	function get_the_content_parts( $args = null ) {
 		$args = wp_parse_args( $args, array(
 			'post_id' => null
 		) );
-		$content_parts = $this->get_content_parts( $args );
-		return $content_parts;
+		return $this->get_content_parts( $args );
 	}
 	
 	/**
 	 * Has Content Parts
-	 * Returns true/false depending if there are multiple content parts.
+	 *
+	 * Returns true/false depending on wether there are multiple content parts.
+	 *
+	 * @param array $args array( $post_id => null ).
+	 * @return bool Has content parts?
 	 */
 	function has_content_parts( $args = null ) {
 		$args = wp_parse_args( $args, array(
@@ -161,7 +203,11 @@ class Content_Parts {
 	
 	/**
 	 * Count Content Parts
-	 * Returns count of available content parts.
+	 *
+	 * Returns the number of available content parts.
+	 *
+	 * @param array $args array( $post_id => null ).
+	 * @return int Number of content parts.
 	 */
 	function count_content_parts( $args = null ) {
 		$args = wp_parse_args( $args, array(
@@ -173,9 +219,13 @@ class Content_Parts {
 	
 	/**
 	 * Get Content Parts
+	 *
+	 * Returns the array of content parts.
+	 *
+	 * @param array $args array( $post_id => null ).
+	 * @return array Content parts.
 	 */
 	function get_content_parts( $args = null ) {
-		global $content_parts;
 		$args = wp_parse_args( $args, array(
 			'post_id' => null
 		) );
@@ -183,12 +233,12 @@ class Content_Parts {
 			$post = get_post( $args['post_id'] );
 			return $this->split_content_parts( $post->post_content );
 		}
-		return $content_parts;
+		return $this->content_parts;
 	}
 
 }
 
-global $Content_Parts, $num_content_parts, $content_parts, $post;
+global $Content_Parts;
 $Content_Parts = new Content_Parts();
 
 // The Content Part
