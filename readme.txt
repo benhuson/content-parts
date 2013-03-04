@@ -26,6 +26,11 @@ If you are not performing an automatic upgrade, deactivate and reactivate the pl
 
 For full details how to implement this plugin visit the [Content Parts plugin page](http://www.benhuson.co.uk/wordpress-plugins/content-parts/).
 
+== Screenshots ==
+
+1. Content Parts editor icon.
+2. Content part divider inserted into the editor.
+
 == Changelog ==
 
 = Content Parts 1.4 =
