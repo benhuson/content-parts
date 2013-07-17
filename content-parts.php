@@ -21,6 +21,7 @@ class Content_Parts {
 	function Content_Parts() {
 		add_action( 'wp', array( $this, 'content_parts_query_vars' ) );
 		add_action( 'the_post', array( $this, 'the_post' ) );
+		add_filter( 'post_class', array( $this, 'post_class' ) );
 		
 		// Admin Includes
 		if ( is_admin() ) {
@@ -28,7 +29,25 @@ class Content_Parts {
 			$this->editor = new Content_Parts_Editor();
 		}
 	}
-	
+
+	/**
+	 * Post Class
+	 *
+	 * Adds post classes to help with content part styling.
+	 *
+	 * @param   array  $classes  Post classes.
+	 * @return  array  $classes  Post classes.
+	 */
+	function post_class( $classes ) {
+		if ( $this->has_content_parts() ) {
+			$classes[] = 'has-content-parts';
+			$classes[] = 'content-parts-' . $this->count_content_parts();
+		} else {
+			$classes[] = 'no-content-parts';
+		}
+		return $classes;
+	}
+
 	/**
 	 * Set up the current post
 	 *
