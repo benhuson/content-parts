@@ -40,9 +40,11 @@ class Content_Parts {
 	 */
 	function post_class( $classes ) {
 		if ( $this->has_content_parts() ) {
-			$classes[] = 'has-content-parts';
-			$classes[] = 'content-parts-' . $this->count_content_parts();
-		} else {
+			if ( ! in_array( 'no-content-parts', $classes ) ) {
+				$classes[] = 'has-content-parts';
+				$classes[] = 'content-parts-' . $this->count_content_parts();
+			}
+		} elseif ( ! in_array( 'has-content-parts', $classes ) ) {
 			$classes[] = 'no-content-parts';
 		}
 		return $classes;
