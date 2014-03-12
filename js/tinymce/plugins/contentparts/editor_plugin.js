@@ -7,7 +7,7 @@
 
 (function() {
 	tinymce.create('tinymce.plugins.ContentParts', {
-		
+
 		// Init.
 		init : function(ed, url) {
 			var t = this, contentPartDividerHTML;
@@ -23,29 +23,27 @@
 			// Register buttons
 			ed.addButton('contentparts', {
 				title : 'Content Parts',
-				cmd : 'mceContentParts',
+				cmd   : 'mceContentParts',
 				image : url + '/img/button.png'
 			});
-			
+
 			// Add listeners to handle more break
 			t._handleContentPartDivider(ed, url);
 
 		},
-		
+
 		// Get Info
 		getInfo : function() {
 			return {
-				longname : 'Content Parts',
-				author : 'Ben Huson',
+				longname  : 'Content Parts',
+				author    : 'Ben Huson',
 				authorurl : 'http://www.benhuson.co.uk',
-				infourl : 'http://www.benhuson.co.uk',
-				version : tinymce.majorVersion + "." + tinymce.minorVersion
+				infourl   : 'http://www.benhuson.co.uk',
+				version   : tinymce.majorVersion + "." + tinymce.minorVersion
 			};
 		},
-		
-		
+
 		_handleContentPartDivider : function(ed, url) {
-			
 			var moreHTML, contentPartDividerHTML;
 
 			contentPartDividerHTML = '<img style="border-top:1px dashed #888;width:100%;height:15px;margin:10px 0;background-image:url(' + url + '/img/content-part-divider.gif);background-repeat:no-repeat;background-position:top right;" src="' + url + '/img/trans.gif" class="mceContentPartDivider mceItemNoResize" title="Content Part Divider" />';
@@ -55,10 +53,10 @@
 				if (ed.theme.onResolveName) {
 					ed.theme.onResolveName.add(function(th, o) {
 						if (o.node.nodeName == 'IMG') {
-							if ( ed.dom.hasClass(o.node, 'mceContentPartDivider') )
+							if ( ed.dom.hasClass(o.node, 'mceContentPartDivider') ) {
 								o.name = 'function';
+							}
 						}
-
 					});
 				}
 			});
@@ -72,9 +70,9 @@
 			ed.onPostProcess.add(function(ed, o) {
 				if (o.get)
 					o.content = o.content.replace(/<img[^>]+>/g, function(im) {
-						if (im.indexOf('class="mceContentPartDivider') !== -1)
+						if (im.indexOf('class="mceContentPartDivider') !== -1) {
 							im = '<!--contentpartdivider-->';
-
+						}
 						return im;
 					});
 			});
@@ -83,13 +81,12 @@
 			ed.onNodeChange.add(function(ed, cm, n) {
 				cm.setActive('contentparts', n.nodeName === 'IMG' && ed.dom.hasClass(n, 'mceContentPartDivider'));
 			});
-			
+
 		}
-		
-		
+
 	});
 
 	// Register plugin
 	tinymce.PluginManager.add('contentparts', tinymce.plugins.ContentParts);
-	
+
 })();
