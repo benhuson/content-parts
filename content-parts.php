@@ -86,7 +86,7 @@ class Content_Parts {
 	 * @return array Content parts array.
 	 */
 	function split_content_parts( $content ) {
-		if ( strpos( $content, '<!--contentpartdivider-->' ) ) {
+		if ( strpos( $content, '<!--contentpartdivider-->' ) !== false ) {
 			$content = str_replace( "\n<!--contentpartdivider-->\n", '<!--contentpartdivider-->', $content );
 			$content = str_replace( "\n<!--contentpartdivider-->", '<!--contentpartdivider-->', $content );
 			$content = str_replace( "<!--contentpartdivider-->\n", '<!--contentpartdivider-->', $content );
