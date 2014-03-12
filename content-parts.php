@@ -25,9 +25,14 @@ class Content_Parts {
 		
 		// Admin Includes
 		if ( is_admin() ) {
-			include_once( WP_PLUGIN_DIR . '/content-parts/admin/editor.php' );
-			$this->editor = new Content_Parts_Editor();
+			if ( defined( 'DOING_AJAX' ) && DOING_AJAX ) {
+				// Load AJAX functions here...
+			} else {
+				include_once( WP_PLUGIN_DIR . '/content-parts/admin/editor.php' );
+				$this->editor = new Content_Parts_Editor();
+			}
 		}
+
 	}
 
 	/**
