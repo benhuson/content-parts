@@ -29,7 +29,6 @@ class Content_Parts {
 				// Load AJAX functions here...
 			} else {
 				include_once( WP_PLUGIN_DIR . '/content-parts/admin/editor.php' );
-				$this->editor = new Content_Parts_Editor();
 			}
 		}
 

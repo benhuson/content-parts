@@ -1,20 +1,8 @@
 <?php
 
+add_action( 'admin_init', array( 'Content_Parts_Editor', 'add_buttons' ) );
+
 class Content_Parts_Editor {
-	
-	/**
-	 * Constructor
-	 */
-	function Content_Parts_Editor() {
-		add_action( 'admin_init', array( $this, 'admin_init' ) );
-	}
-	
-	/**
-	 * Admin Init
-	 */
-	function admin_init() {
-		$this->add_buttons();
-	}
 	
 	/**
 	 * Add Editor Buttons
@@ -26,8 +14,8 @@ class Content_Parts_Editor {
 		
 		// Add only in Rich Editor mode
 		if ( get_user_option( 'rich_editing' ) == 'true' ) {
-			add_filter( 'mce_buttons', array( $this, 'register_content_parts_button' ) );
-			add_filter( 'mce_external_plugins', array( $this, 'add_content_parts_plugin' ) );
+			add_filter( 'mce_buttons', array( 'Content_Parts_Editor', 'register_content_parts_button' ) );
+			add_filter( 'mce_external_plugins', array( 'Content_Parts_Editor', 'add_content_parts_plugin' ) );
 		}
 	}
 	
