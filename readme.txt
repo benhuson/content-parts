@@ -3,7 +3,7 @@ Contributors: husobj
 Donate link: http://www.benhuson.co.uk/wordpress-plugins/content-parts/
 Tags: content, layout, the_content, templates, theme, editor
 Requires at least: 3.0
-Tested up to: 3.4.1
+Tested up to: 4.0
 Stable tag: 1.4
 
 Divide your post content into parts that you can show in different areas of your theme templates.
