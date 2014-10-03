@@ -19,6 +19,7 @@ class Content_Parts_Editor {
 			add_filter( 'mce_buttons', array( 'Content_Parts_Editor', 'register_content_parts_button' ) );
 			add_filter( 'mce_external_plugins', array( 'Content_Parts_Editor', 'add_content_parts_plugin' ) );
 		}
+
 	}
 
 	/**
@@ -30,8 +31,11 @@ class Content_Parts_Editor {
 	 * @return  array            Buttons array.
 	 */
 	static function register_content_parts_button( $buttons ) {
+
 		array_push( $buttons, 'separator', 'contentparts' );
+
 		return $buttons;
+
 	}
 
 	/**
@@ -43,8 +47,11 @@ class Content_Parts_Editor {
 	 * @return  array                 Plugins array.
 	 */
 	static function add_content_parts_plugin( $plugin_array ) {
+
 		$plugin_array['contentparts'] = WP_PLUGIN_URL . '/content-parts/js/tinymce/plugins/contentparts/editor_plugin.js';
+
 		return $plugin_array;
+
 	}
 
 }

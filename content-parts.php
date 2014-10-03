@@ -19,6 +19,7 @@ class Content_Parts {
 	 * Constructor
 	 */
 	function Content_Parts() {
+
 		add_action( 'wp', array( $this, 'content_parts_query_vars' ) );
 		add_action( 'the_post', array( $this, 'the_post' ) );
 		add_filter( 'post_class', array( $this, 'post_class' ) );
@@ -43,6 +44,7 @@ class Content_Parts {
 	 * @return  array  $classes  Post classes.
 	 */
 	function post_class( $classes ) {
+
 		if ( $this->has_content_parts() ) {
 			if ( ! in_array( 'no-content-parts', $classes ) ) {
 				$classes[] = 'has-content-parts';
@@ -52,6 +54,7 @@ class Content_Parts {
 			$classes[] = 'no-content-parts';
 		}
 		return $classes;
+
 	}
 
 	/**
@@ -62,7 +65,9 @@ class Content_Parts {
 	 * @param  object  $post  Post object.
 	 */
 	function the_post( $post ) {
+
 		$this->content_parts = $this->split_content_parts( $post->post_content );
+
 	}
 
 	/**
@@ -73,6 +78,7 @@ class Content_Parts {
 	 * potential use content part before the loop starts.
 	 */
 	function content_parts_query_vars() {
+
 		global $post;
 
 		if ( ! isset( $post ) ) {
@@ -80,6 +86,7 @@ class Content_Parts {
 		}
 
 		$this->content_parts = $this->split_content_parts( $post->post_content );
+
 	}
 
 	/**
@@ -91,6 +98,7 @@ class Content_Parts {
 	 * @return  array             Content parts array.
 	 */
 	function split_content_parts( $content ) {
+
 		if ( strpos( $content, '<!--contentpartdivider-->' ) !== false ) {
 			$content = str_replace( "\n<!--contentpartdivider-->\n", '<!--contentpartdivider-->', $content );
 			$content = str_replace( "\n<!--contentpartdivider-->", '<!--contentpartdivider-->', $content );
@@ -99,7 +107,9 @@ class Content_Parts {
 		} else {
 			$content_parts = array( $content );
 		}
+
 		return $content_parts;
+
 	}
 
 	/**
@@ -112,6 +122,7 @@ class Content_Parts {
 	 * @param  string  $deprecated  Used to be the 'after' string.
 	 */
 	function the_content_part( $page = 1, $args = null, $deprecated = '' ) {
+
 		$defaults = array(
 			'post_id' => null,
 			'before'  => '',
@@ -131,12 +142,14 @@ class Content_Parts {
 
 		$args = wp_parse_args( $args, $defaults );
 		$my_args = apply_filters( 'content_part_args', $args, $page );
+
 		$output = $this->get_the_content_part( $page, $args );
 		$before = str_replace( '%%part%%', $page, $my_args['before'] );
 		$after = str_replace( '%%part%%', $page, $my_args['after'] );
 		if ( ! empty( $output ) ) {
 			echo $before . $output . $after;
 		}
+
 	}
 
 	/**
@@ -149,17 +162,22 @@ class Content_Parts {
 	 * @return  string         The content part HTML.
 	 */
 	function get_the_content_part( $page = 1, $args = null ) {
+
 		$args = wp_parse_args( $args, array(
 			'post_id' => null
 		) );
+
 		$content_parts = $this->get_content_parts( $args );
 		$page = absint( $page );
+
 		if ( $page > 0 && $page <= count( $content_parts ) ) {
 			$content = force_balance_tags( $content_parts[$page - 1] );
 			$content = apply_filters( 'the_content', $content );
 			return $content;
 		}
+
 		return '';
+
 	}
 
 	/**
@@ -170,6 +188,7 @@ class Content_Parts {
 	 * @param array $args array( $post_id => null, $before => '', $after => '', $start => 1, $limit => 0 ).
 	 */
 	function the_content_parts( $args = null ) {
+
 		$content_parts = $this->get_content_parts( $args );
 		$pargs = wp_parse_args( $args, array(
 			'post_id' => null,
@@ -196,6 +215,7 @@ class Content_Parts {
 			}
 			$count++;
 		}
+
 	}
 
 	/**
@@ -207,10 +227,13 @@ class Content_Parts {
 	 * @return  array         Content parts.
 	 */
 	function get_the_content_parts( $args = null ) {
+
 		$args = wp_parse_args( $args, array(
 			'post_id' => null
 		) );
+
 		return $this->get_content_parts( $args );
+
 	}
 
 	/**
@@ -222,14 +245,18 @@ class Content_Parts {
 	 * @return  bool          Has content parts?
 	 */
 	function has_content_parts( $args = null ) {
+
 		$args = wp_parse_args( $args, array(
 			'post_id' => null
 		) );
+
 		$content_parts = $this->get_content_parts( $args );
 		if ( count( $content_parts ) > 1 ) {
 			return true;
 		}
+
 		return false;
+
 	}
 
 	/**
@@ -241,11 +268,15 @@ class Content_Parts {
 	 * @return  int           Number of content parts.
 	 */
 	function count_content_parts( $args = null ) {
+
 		$args = wp_parse_args( $args, array(
 			'post_id' => null
 		) );
+
 		$content_parts = $this->get_content_parts( $args );
+
 		return count( $content_parts );
+
 	}
 
 	/**
@@ -257,14 +288,18 @@ class Content_Parts {
 	 * @return  array         Content parts.
 	 */
 	function get_content_parts( $args = null ) {
+
 		$args = wp_parse_args( $args, array(
 			'post_id' => null
 		) );
+
 		if ( absint( $args['post_id'] ) > 0 ) {
 			$post = get_post( $args['post_id'] );
 			return $this->split_content_parts( $post->post_content );
 		}
+
 		return $this->content_parts;
+
 	}
 
 }
