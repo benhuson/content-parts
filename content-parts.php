@@ -120,9 +120,13 @@ class Content_Parts {
 
 		// Deprecate multiple args and move to $args array
 		// @todo Add deprecated message
+		if ( ! empty( $deprecated ) ) {
+			_deprecated_argument( __FUNCTION__, '1.4' );
+		}
 		if ( ! is_array( $args ) && $args != null ) {
 			$defaults['before'] = $args;
 			$defaults['after']  = $deprecated;
+			_deprecated_argument( __FUNCTION__, '1.4' );
 		}
 
 		$args = wp_parse_args( $args, $defaults );
