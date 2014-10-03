@@ -1,10 +1,11 @@
 === Content Parts  ===
 Contributors: husobj
-Donate link: http://www.benhuson.co.uk/wordpress-plugins/content-parts/
+Donate link: http://www.benhuson.co.uk/donate/
 Tags: content, layout, the_content, templates, theme, editor
 Requires at least: 3.0
 Tested up to: 4.0
-Stable tag: 1.4
+Stable tag: 1.5
+License: GPLv2 or later
 
 Divide your post content into parts that you can show in different areas of your theme templates.
 
@@ -33,6 +34,13 @@ For full details how to implement this plugin visit the [Content Parts plugin pa
 
 == Changelog ==
 
+= Content Parts 1.5 =
+
+* Add post classes ( has-content-parts, content-parts-{n}, no-content-parts).
+* Don't load editor functionality if DOING_AJAX.
+* Updated Tiny MCE button image.
+* Tested up to WordPress 4.0
+
 = Content Parts 1.4 =
 
 * Automatically make content parts work when 'in the loop'.
@@ -58,3 +66,20 @@ For full details how to implement this plugin visit the [Content Parts plugin pa
 = Content Parts 1.0 =
 
 * First release.
+
+== Upgrade Notice ==
+
+= Content Parts 1.5 =
+Add post classes ( has-content-parts, content-parts-{n}, no-content-parts).
+
+= Content Parts 1.4 =
+Added content_part_args filter and %%part%% placeholder to before/after strings to replace with content part index.
+
+= Content Parts 1.3 =
+All functions can now be passed an array of parameters. Deprecate the_content_part() multiple args - now expects an array.
+
+= Content Parts 1.2 =
+Validate 'start' and 'limit' args are numeric.
+
+= Content Parts 1.1 =
+Added count_content_parts() function. props Rory.
