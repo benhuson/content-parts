@@ -2,8 +2,8 @@
 Contributors: husobj
 Donate link: http://www.benhuson.co.uk/donate/
 Tags: content, layout, the_content, templates, theme, editor
-Requires at least: 3.0
-Tested up to: 4.0
+Requires at least: 3.5
+Tested up to: 4.1
 Stable tag: 1.5
 License: GPLv2 or later
 
