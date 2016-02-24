@@ -17,8 +17,10 @@ class Content_Parts {
 
 	/**
 	 * Constructor
+	 *
+	 * @since  1.6  PHP5 constructor added.
 	 */
-	function Content_Parts() {
+	public function __construct() {
 
 		add_action( 'wp', array( $this, 'content_parts_query_vars' ) );
 		add_action( 'the_post', array( $this, 'the_post' ) );
@@ -32,6 +34,15 @@ class Content_Parts {
 				include_once( WP_PLUGIN_DIR . '/content-parts/admin/editor.php' );
 			}
 		}
+
+	}
+
+	/**
+	 * Constructor (deprecated)
+	 */
+	public function Content_Parts() {
+
+		$this->__construct();
 
 	}
 
