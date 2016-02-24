@@ -6,8 +6,11 @@ class Content_Parts_Editor {
 
 	/**
 	 * Add Editor Buttons
+	 *
+	 * @since     1.2
+	 * @internal  Called by `admin_init` action.
 	 */
-	static function add_buttons() {
+	public static function add_buttons() {
 
 		// Don't bother doing this stuff if the current user lacks permissions
 		if ( ! current_user_can( 'edit_posts' ) && ! current_user_can( 'edit_pages' ) ) {
@@ -27,10 +30,13 @@ class Content_Parts_Editor {
 	 *
 	 * This function registers the Content Part button for the editor.
 	 *
+	 * @since     1.2
+	 * @internal  Called by `mce_buttons` filter.
+	 *
 	 * @param   array  $buttons  Buttons array.
 	 * @return  array            Buttons array.
 	 */
-	static function register_content_parts_button( $buttons ) {
+	public static function register_content_parts_button( $buttons ) {
 
 		array_push( $buttons, 'separator', 'contentparts' );
 
@@ -43,10 +49,13 @@ class Content_Parts_Editor {
 	 *
 	 * This function adds the Content Part button to the editor.
 	 *
+	 * @since     1.2
+	 * @internal  Called by `mce_external_plugins` filter.
+	 *
 	 * @param   array  $plugin_array  TinyMCE plugins array.
 	 * @return  array                 Plugins array.
 	 */
-	static function add_content_parts_plugin( $plugin_array ) {
+	public static function add_content_parts_plugin( $plugin_array ) {
 
 		$plugin_array['contentparts'] = WP_PLUGIN_URL . '/content-parts/js/tinymce/plugins/contentparts/editor_plugin.js';
 
