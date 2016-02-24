@@ -12,6 +12,16 @@ License: GPLv2 or later
 
 class Content_Parts {
 
+	/**
+	 * Plugin File
+	 *
+	 * @since  1.6
+	 *
+	 * @var  string
+	 */
+	private static $file = __FILE__;
+
+
 	public $editor = '';
 	public $content_parts;
 
@@ -31,7 +41,7 @@ class Content_Parts {
 			if ( defined( 'DOING_AJAX' ) && DOING_AJAX ) {
 				// Load AJAX functions here...
 			} else {
-				include_once( WP_PLUGIN_DIR . '/content-parts/admin/editor.php' );
+				include_once( self::dir() . 'admin/editor.php' );
 			}
 		}
 
@@ -337,6 +347,58 @@ class Content_Parts {
 		}
 
 		return $this->content_parts;
+
+	}
+
+	/**
+	 * Plugin Basename
+	 *
+	 * @since  1.6
+	 *
+	 * @return  string  Plugin basename.
+	 */
+	public static function basename() {
+
+		return plugin_basename( self::$file );
+
+	}
+
+	/**
+	 * Plugin Sub Directory
+	 *
+	 * @since  1.6
+	 *
+	 * @return  string  Plugin folder name.
+	 */
+	public static function sub_dir() {
+
+		return trailingslashit( '/' . str_replace( basename( self::$file ), '', self::basename() ) );
+
+	}
+
+	/**
+	 * Plugin URL
+	 *
+	 * @since  1.6
+	 *
+	 * @return  string  Plugin directory URL.
+	 */
+	public static function url() {
+
+		return trailingslashit( plugins_url( self::sub_dir() ) );
+
+	}
+
+	/**
+	 * Plugin Directory
+	 *
+	 * @since  1.6
+	 * 
+	 * @return  string  Plugin directory path.
+	 */
+	public static function dir() {
+
+		return trailingslashit( plugin_dir_path( self::$file ) );
 
 	}
 

@@ -57,7 +57,7 @@ class Content_Parts_Editor {
 	 */
 	public static function add_content_parts_plugin( $plugin_array ) {
 
-		$plugin_array['contentparts'] = WP_PLUGIN_URL . '/content-parts/js/tinymce/plugins/contentparts/editor_plugin.js';
+		$plugin_array['contentparts'] = Content_Parts::url() . 'js/tinymce/plugins/contentparts/editor_plugin.js';
 
 		return $plugin_array;
 
