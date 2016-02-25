@@ -4,6 +4,8 @@
  * @package     Content Parts
  * @subpackage  Content Parts Class
  *
+ * Do not called any methods marks as @internal directly.
+ *
  * @since  1.3
  */
 
@@ -22,6 +24,7 @@ class Content_Parts {
 		add_action( 'wp', array( $this, 'content_parts_query_vars' ) );
 		add_action( 'the_post', array( $this, 'the_post' ) );
 		add_filter( 'post_class', array( $this, 'post_class' ) );
+		add_filter( 'the_content', array( $this, 'the_content' ) );
 
 		// Admin Includes
 		if ( is_admin() ) {
@@ -67,6 +70,43 @@ class Content_Parts {
 			$classes[] = 'no-content-parts';
 		}
 		return $classes;
+
+	}
+
+	/**
+	 * The Content
+	 *
+	 * Automatically output <div> blocks around content parts
+	 * in the main content on single posts and pages.
+	 *
+	 * Use the `content_parts_auto_content` filter to return false
+	 * to disable automatically outputting content parts.
+	 *
+	 * @since     1.6
+	 * @internal  Called by `the_content` filter.
+	 *
+	 * @param   string  $content  Post content.
+	 * @return  string            Post content.
+	 */
+	public function the_content( $content ) {
+
+		// Only for the main content on single posts/pages.
+		if ( is_singular() && is_main_query() && $this->has_content_parts() && apply_filters( 'content_parts_auto_content', true ) ) {
+
+			remove_filter( 'the_content', array( $this, 'the_content' ) );
+
+			// Default content parts output
+			$content = $this->the_content_parts( array(
+				'before' => '<div class="content-part content-part-%%part%%">',
+				'after'  => '</div>',
+				'echo'   => false
+			) );
+
+			add_filter( 'the_content', array( $this, 'the_content' ) );
+
+		}
+
+		return $content;
 
 	}
 
