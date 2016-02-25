@@ -40,8 +40,8 @@
 			return {
 				longname  : 'Content Parts',
 				author    : 'Ben Huson',
-				authorurl : 'http://www.benhuson.co.uk',
-				infourl   : 'http://www.benhuson.co.uk',
+				authorurl : 'https://github.com/benhuson/content-parts',
+				infourl   : 'https://wordpress.org/plugins/content-parts/',
 				version   : tinymce.majorVersion + "." + tinymce.minorVersion
 			};
 
