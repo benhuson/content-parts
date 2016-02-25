@@ -17,7 +17,7 @@
 			t.editor = ed;
 
 			// Register commands
-			contentPartDividerHTML = '<img style="border-top: 1px dashed #888; width: 100%; height: 15px; margin: 10px 0; background-image: url( ' + url + '/img/content-part-divider.gif ); background-repeat: no-repeat; background-position: top right;" src="' + url + '/img/trans.gif" class="mceContentPartDivider mceItemNoResize" title="Content Part Divider" />';
+			contentPartDividerHTML = t._editorPreview( url );
 			ed.addCommand( 'mceContentParts', function() {
 				ed.execCommand( 'mceInsertContent', false, contentPartDividerHTML );
 			} );
@@ -49,9 +49,9 @@
 
 		_handleContentPartDivider : function( ed, url ) {
 
-			var moreHTML, contentPartDividerHTML;
+			var t = this, moreHTML, contentPartDividerHTML;
 
-			contentPartDividerHTML = '<img style="border-top: 1px dashed #888; width: 100%; height: 15px; margin: 10px 0; background-image: url( ' + url + '/img/content-part-divider.gif ); background-repeat: no-repeat; background-position: top right;" src="' + url + '/img/trans.gif" class="mceContentPartDivider mceItemNoResize" title="Content Part Divider" />';
+			contentPartDividerHTML = t._editorPreview( url );
 
 			// Display morebreak instead if img in element path
 			ed.onPostRender.add( function() {
@@ -86,6 +86,12 @@
 			ed.onNodeChange.add( function( ed, cm, n ) {
 				cm.setActive( 'contentparts', n.nodeName === 'IMG' && ed.dom.hasClass( n, 'mceContentPartDivider' ) );
 			} );
+
+		},
+
+		_editorPreview : function( url ) {
+
+			return '<img style="border-top: 1px dashed #888; width: 100%; height: 15px; margin: 10px 0; background-image: url( ' + url + '/img/content-part-divider.gif ); background-repeat: no-repeat; background-position: top right;" src="' + url + '/img/trans.gif" class="mceContentPartDivider mceItemNoResize" title="Content Part Divider" />';
 
 		}
 
