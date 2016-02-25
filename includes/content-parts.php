@@ -222,13 +222,16 @@ class Content_Parts {
 			'before'  => '',
 			'after'   => '',
 			'start'   => 1,
-			'limit'   => 0
+			'limit'   => 0,
+			'echo'    => true
 		) );
 		$pargs['start'] = absint( $pargs['start'] );
 		if ( $pargs['start'] <= 0 ) {
 			$pargs['start'] = 1;
 		}
 		$pargs['limit'] = absint( $pargs['limit'] );
+
+		$output = '';
 
 		$count = 1;
 		foreach ( $content_parts as $page ) {
@@ -238,10 +241,17 @@ class Content_Parts {
 				$my_args = apply_filters( 'content_part_args', $pargs, $count );
 				$before = str_replace( '%%part%%', $count, $my_args['before'] );
 				$after = str_replace( '%%part%%', $count, $my_args['after'] );
-				echo $before . $content . $after;
+				$output .= $before . $content . $after;
 			}
 			$count++;
 		}
+
+		// Output
+		if ( $pargs['echo'] ) {
+			echo $output;
+		}
+
+		return $output;
 
 	}
 
