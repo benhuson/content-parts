@@ -10,7 +10,14 @@ Author URI: https://github.com/benhuson/content-parts
 License: GPLv2 or later
 */
 
-class Content_Parts {
+/**
+ * Plugin Class
+ *
+ * Methods to retrieve plugins details such as paths and URLs.
+ *
+ * @since  2.6
+ */
+class Content_Parts_Plugin {
 
 	/**
 	 * Plugin File
@@ -21,6 +28,61 @@ class Content_Parts {
 	 */
 	private static $file = __FILE__;
 
+	/**
+	 * Plugin Basename
+	 *
+	 * @since  1.6
+	 *
+	 * @return  string  Plugin basename.
+	 */
+	public static function basename() {
+
+		return plugin_basename( self::$file );
+
+	}
+
+	/**
+	 * Plugin Sub Directory
+	 *
+	 * @since  1.6
+	 *
+	 * @return  string  Plugin folder name.
+	 */
+	public static function sub_dir() {
+
+		return trailingslashit( '/' . str_replace( basename( self::$file ), '', self::basename() ) );
+
+	}
+
+	/**
+	 * Plugin URL
+	 *
+	 * @since  1.6
+	 *
+	 * @return  string  Plugin directory URL.
+	 */
+	public static function url( $path = '' ) {
+
+		return trailingslashit( plugins_url( self::sub_dir() ) ) . ltrim( $path, '/' );
+
+	}
+
+	/**
+	 * Plugin Directory
+	 *
+	 * @since  1.6
+	 * 
+	 * @return  string  Plugin directory path.
+	 */
+	public static function dir( $path = '' ) {
+
+		return trailingslashit( plugin_dir_path( self::$file ) ) . ltrim( $path, '/' );
+
+	}
+
+}
+
+class Content_Parts {
 
 	public $editor = '';
 	public $content_parts;
@@ -41,7 +103,7 @@ class Content_Parts {
 			if ( defined( 'DOING_AJAX' ) && DOING_AJAX ) {
 				// Load AJAX functions here...
 			} else {
-				include_once( self::dir() . 'admin/editor.php' );
+				include_once( Content_Parts_Plugin::dir( 'admin/editor.php' ) );
 			}
 		}
 
@@ -347,58 +409,6 @@ class Content_Parts {
 		}
 
 		return $this->content_parts;
-
-	}
-
-	/**
-	 * Plugin Basename
-	 *
-	 * @since  1.6
-	 *
-	 * @return  string  Plugin basename.
-	 */
-	public static function basename() {
-
-		return plugin_basename( self::$file );
-
-	}
-
-	/**
-	 * Plugin Sub Directory
-	 *
-	 * @since  1.6
-	 *
-	 * @return  string  Plugin folder name.
-	 */
-	public static function sub_dir() {
-
-		return trailingslashit( '/' . str_replace( basename( self::$file ), '', self::basename() ) );
-
-	}
-
-	/**
-	 * Plugin URL
-	 *
-	 * @since  1.6
-	 *
-	 * @return  string  Plugin directory URL.
-	 */
-	public static function url() {
-
-		return trailingslashit( plugins_url( self::sub_dir() ) );
-
-	}
-
-	/**
-	 * Plugin Directory
-	 *
-	 * @since  1.6
-	 * 
-	 * @return  string  Plugin directory path.
-	 */
-	public static function dir() {
-
-		return trailingslashit( plugin_dir_path( self::$file ) );
 
 	}
 
