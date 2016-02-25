@@ -11,7 +11,8 @@ License: GPLv2 or later
 */
 
 /**
- * Plugin Class
+ * @package     Content Parts
+ * @subpackage  Plugin Class
  *
  * Methods to retrieve plugins details such as paths and URLs.
  *
@@ -36,6 +37,7 @@ class Content_Parts_Plugin {
 	public static function load() {
 
 		include_once( Content_Parts_Plugin::dir( 'includes/content-parts.php' ) );
+		include_once( Content_Parts_Plugin::dir( 'includes/template-tags.php' ) );
 
 	}
 

@@ -1,5 +1,12 @@
 <?php
 
+/**
+ * @package     Content Parts
+ * @subpackage  Editor Class
+ *
+ * @since  1.2
+ */
+
 add_action( 'admin_init', array( 'Content_Parts_Editor', 'add_buttons' ) );
 
 class Content_Parts_Editor {
