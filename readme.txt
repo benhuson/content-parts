@@ -34,6 +34,10 @@ For full details how to implement this plugin visit the [Content Parts plugin pa
 
 == Changelog ==
 
+= Unreleased =
+
+* Use PHP5 constructors.
+
 = Content Parts 1.5 =
 
 * Add post classes ( has-content-parts, content-parts-{n}, no-content-parts).
