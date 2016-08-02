@@ -12,6 +12,14 @@
 class Content_Parts {
 
 	public $editor = '';
+
+	/**
+	 * Content Parts
+	 *
+	 * @since  1.6
+	 *
+	 * @var  array  Array of content part HTML.
+	 */
 	public $content_parts;
 
 	/**
