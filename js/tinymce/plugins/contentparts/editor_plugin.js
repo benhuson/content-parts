@@ -26,7 +26,7 @@
 			ed.addButton( 'contentparts', {
 				title : 'Content Parts',
 				cmd   : 'mceContentParts',
-				image : url + '/img/button.png'
+				image : url + '/img/button.svg'
 			} );
 
 			// Add listeners to handle more break
@@ -91,7 +91,7 @@
 
 		_editorPreview : function( url ) {
 
-			return '<img style="border-top: 1px dashed #888; width: 100%; height: 15px; margin: 10px 0; background-image: url( ' + url + '/img/content-part-divider.gif ); background-repeat: no-repeat; background-position: top right;" src="' + url + '/img/trans.gif" class="mceContentPartDivider mceItemNoResize" title="Content Part Divider" />';
+			return '<img style="border-top: 1px dashed #888; width: 100%; height: 15px; margin: 10px 0; background-image: url( ' + url + '/img/content-part-divider.svg ); background-repeat: no-repeat; background-position: top right;" src="' + url + '/img/trans.gif" class="mceContentPartDivider mceItemNoResize" title="Content Part Divider" />';
 
 		}
 
