@@ -26,7 +26,7 @@
 			ed.addButton( 'contentparts', {
 				title : 'Content Parts',
 				cmd   : 'mceContentParts',
-				image : url + '/img/button.png'
+				image : url + '/img/button.svg'
 			} );
 
 			// Add listeners to handle more break
