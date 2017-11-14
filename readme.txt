@@ -36,7 +36,11 @@ For full details how to implement this plugin visit the [Content Parts plugin pa
 
 = Unreleased =
 
+= Content Parts 1.6 =
+
 * Use PHP5 constructors.
+* Automatically output `<div>` blocks around content parts in the main content on single posts and pages. Disable via the `content_parts_auto_content` filter.
+* Use SVG images.
 
 = Content Parts 1.5 =
 
@@ -72,6 +76,9 @@ For full details how to implement this plugin visit the [Content Parts plugin pa
 * First release.
 
 == Upgrade Notice ==
+
+= Content Parts 1.6 =
+Automatically output `<div>` blocks around content parts in the main content on single posts and pages. Disable via the `content_parts_auto_content` filter.
 
 = Content Parts 1.5 =
 Add post classes ( has-content-parts, content-parts-{n}, no-content-parts).
