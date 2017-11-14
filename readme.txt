@@ -2,8 +2,8 @@
 Contributors: husobj
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=ZU69EJN4XBP3A
 Tags: content, layout, the_content, templates, theme, editor
-Requires at least: 3.5
-Tested up to: 4.6
+Requires at least: 3.9
+Tested up to: 4.9
 Stable tag: 1.5
 License: GPLv2 or later
 
