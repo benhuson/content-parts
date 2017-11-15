@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags: content, layout, the_content, templates, theme, editor
 Requires at least: 3.9
 Tested up to: 4.9
-Stable tag: 1.5
+Stable tag: 1.6
 License: GPLv2 or later
 
 Divide your post content into parts that you can show in different areas of your theme templates.
