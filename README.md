@@ -27,6 +27,9 @@ If you are not performing an automatic upgrade, deactivate and reactivate the pl
 Upgrade Notice
 --------------
 
+### 1.6
+Automatically output `<div>` blocks around content parts in the main content on single posts and pages. Disable via the `content_parts_auto_content` filter.
+
 ### 1.5
 Add post classes (`has-content-parts`, `content-parts-{n}`, `no-content-parts`).
 

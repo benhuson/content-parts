@@ -4,8 +4,13 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [1.6] - 2017-11-14
+
 ### Changed
+
 - Use PHP5 constructors.
+- Automatically output `<div>` blocks around content parts in the main content on single posts and pages. Disable via the `content_parts_auto_content` filter.
+- Use SVG images.
 
 ## [1.5] - 0000-00-00
 
@@ -50,7 +55,8 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ### Added
 - First release.
 
-[Unreleased]: https://github.com/benhuson/content-parts/compare/1.5...HEAD
+[Unreleased]: https://github.com/benhuson/content-parts/compare/1.6...HEAD
+[1.6]: https://github.com/benhuson/content-parts/compare/1.5...1.6
 [1.5]: https://github.com/benhuson/content-parts/compare/1.4...1.5
 [1.4]: https://github.com/benhuson/content-parts/compare/1.3...1.4
 [1.3]: https://github.com/benhuson/content-parts/compare/1.2...1.3

@@ -4,7 +4,7 @@
 Plugin Name: Content Parts
 Plugin URI: https://wordpress.org/plugins/content-parts/
 Description: Divide your post content into parts that you can use in different areas of your theme templates.
-Version: 1.5
+Version: 1.6
 Author: Ben Huson
 Author URI: https://github.com/benhuson/content-parts
 License: GPLv2 or later

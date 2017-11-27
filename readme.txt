@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags: content, layout, the_content, templates, theme, editor
 Requires at least: 3.9
 Tested up to: 4.9
-Stable tag: 1.5
+Stable tag: 1.6
 License: GPLv2 or later
 
 Divide your post content into parts that you can show in different areas of your theme templates.
@@ -36,7 +36,11 @@ For full details how to implement this plugin visit the [Content Parts plugin pa
 
 = Unreleased =
 
+= Content Parts 1.6 =
+
 * Use PHP5 constructors.
+* Automatically output `<div>` blocks around content parts in the main content on single posts and pages. Disable via the `content_parts_auto_content` filter.
+* Use SVG images.
 
 = Content Parts 1.5 =
 
@@ -72,6 +76,9 @@ For full details how to implement this plugin visit the [Content Parts plugin pa
 * First release.
 
 == Upgrade Notice ==
+
+= Content Parts 1.6 =
+Automatically output `<div>` blocks around content parts in the main content on single posts and pages. Disable via the `content_parts_auto_content` filter.
 
 = Content Parts 1.5 =
 Add post classes ( has-content-parts, content-parts-{n}, no-content-parts).
