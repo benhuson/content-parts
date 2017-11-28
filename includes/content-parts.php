@@ -29,6 +29,8 @@ class Content_Parts {
 	 */
 	public function __construct() {
 
+		include_once( Content_Parts_Plugin::dir( 'includes/settings.php' ) );
+
 		add_action( 'wp', array( $this, 'content_parts_query_vars' ) );
 		add_action( 'the_post', array( $this, 'the_post' ) );
 		add_filter( 'post_class', array( $this, 'post_class' ) );
@@ -39,6 +41,7 @@ class Content_Parts {
 			if ( defined( 'DOING_AJAX' ) && DOING_AJAX ) {
 				// Load AJAX functions here...
 			} else {
+				include_once( Content_Parts_Plugin::dir( 'admin/settings.php' ) );
 				include_once( Content_Parts_Plugin::dir( 'admin/editor.php' ) );
 			}
 		}
@@ -99,7 +102,7 @@ class Content_Parts {
 	public function the_content( $content ) {
 
 		// Only for the main content on single posts/pages.
-		if ( is_singular() && is_main_query() && $this->has_content_parts() && apply_filters( 'content_parts_auto_content', null ) ) {
+		if ( is_singular() && is_main_query() && $this->has_content_parts() && Content_Parts_Settings::is_auto_format_post_type( get_post_type( get_queried_object() ) ) ) {
 
 			remove_filter( 'the_content', array( $this, 'the_content' ) );
 
