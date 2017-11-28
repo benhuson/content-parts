@@ -4,6 +4,16 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+### Fixed
+- Don't Automatically output `<div>` blocks - broke styling on some some.
+
+### Added
+- Added settings page: Select post types to which `<div>` blocks will be automatically added.
+- `content_parts_auto_format_post_types` filter added to enable override of admin settings.
+
+## Changed
+- Removed the `content_parts_auto_content` filter. Instead use the `content_parts_auto_format_post_types` filter.
+
 ## [1.6] - 2017-11-14
 
 ### Changed
