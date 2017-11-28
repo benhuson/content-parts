@@ -102,7 +102,7 @@ class Content_Parts {
 	public function the_content( $content ) {
 
 		// Only for the main content on single posts/pages.
-		if ( is_singular() && is_main_query() && $this->has_content_parts() && apply_filters( 'content_parts_auto_content', null ) ) {
+		if ( is_singular() && is_main_query() && $this->has_content_parts() && Content_Parts_Settings::is_auto_format_post_type( get_post_type( get_queried_object() ) ) ) {
 
 			remove_filter( 'the_content', array( $this, 'the_content' ) );
 
