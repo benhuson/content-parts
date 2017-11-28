@@ -14,7 +14,9 @@ class Content_Parts_Settings {
 	 */
 	public static function get_auto_format_post_types() {
 
-		return (array) get_option( 'content_parts_auto_format_post_types' );
+		$option = (array) get_option( 'content_parts_auto_format_post_types' );
+
+		return apply_filters( 'content_parts_auto_format_post_types', $option );
 
 	}
 
