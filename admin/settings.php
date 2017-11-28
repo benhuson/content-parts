@@ -88,7 +88,27 @@ class Content_Parts_Admin_Settings extends Content_Parts_Settings {
 
 		echo '<ul>';
 		foreach ( $post_types as $post_type => $data ) {
-			printf( '<li><label><input name="content_parts_auto_format_post_types[]" id="content_parts_auto_format_post_types" type="checkbox" value="%1$s" ' . checked( true, self::is_auto_format_post_type( $post_type ), false ) . ' /> %2$s</label></li>', esc_attr( $post_type ), esc_html( $data->label ) );
+
+			echo '<li>';
+
+			if ( self::is_filter_added_auto_format_post_type( $post_type ) ) {
+				printf( '<label><input name="content_parts_auto_format_post_types[]" id="content_parts_auto_format_post_types" type="checkbox" value="%1$s" ' . checked( true, self::is_auto_format_post_type( $post_type ), false ) . disabled( true, true, false ) . ' /> %2$s</label>', esc_attr( $post_type ), esc_html( $data->label ) );
+				echo ' <span class="description" style="opacity: 0.5;">(added via the theme or a plugin)</span>';
+				if ( self::is_auto_format_post_type( $post_type, true ) ) {
+					echo '<input type="hidden" name="content_parts_auto_format_post_types[]" value="' .  esc_attr( $post_type ) . '" />';
+				}
+			} elseif ( self::is_filter_removed_auto_format_post_type( $post_type ) ) {
+				printf( '<label><input name="content_parts_auto_format_post_types[]" id="content_parts_auto_format_post_types" type="checkbox" value="%1$s" ' . checked( true, self::is_auto_format_post_type( $post_type ), false ) . disabled( true, true, false ) . ' /> %2$s</label>', esc_attr( $post_type ), esc_html( $data->label ) );
+				echo ' <span class="description" style="opacity: 0.5;">(removed via the theme or a plugin)</span>';
+				if ( self::is_auto_format_post_type( $post_type, true ) ) {
+					echo '<input type="hidden" name="content_parts_auto_format_post_types[]" value="' .  esc_attr( $post_type ) . '" />';
+				}
+			} else {
+				printf( '<label><input name="content_parts_auto_format_post_types[]" id="content_parts_auto_format_post_types" type="checkbox" value="%1$s" ' . checked( true, self::is_auto_format_post_type( $post_type ), false ) . ' /> %2$s</label>', esc_attr( $post_type ), esc_html( $data->label ) );
+			}
+
+			echo '</li>';
+
 		}
 		echo '</ul>';
 
@@ -187,3 +207,14 @@ class Content_Parts_Admin_Settings extends Content_Parts_Settings {
 	}
 
 }
+
+function my_content_parts_auto_format_post_types( $post_types ) {
+	foreach ( $post_types as $key => $post_type ) {
+		if ( 'post' == $post_type ) {
+			unset( $post_types[ $key ] );
+		}
+	}
+	$post_types[] = 'page';
+	return $post_types;
+}
+add_filter( 'content_parts_auto_format_post_types', 'my_content_parts_auto_format_post_types' );
