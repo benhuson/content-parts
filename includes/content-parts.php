@@ -39,6 +39,7 @@ class Content_Parts {
 			if ( defined( 'DOING_AJAX' ) && DOING_AJAX ) {
 				// Load AJAX functions here...
 			} else {
+				include_once( Content_Parts_Plugin::dir( 'admin/settings.php' ) );
 				include_once( Content_Parts_Plugin::dir( 'admin/editor.php' ) );
 			}
 		}
