@@ -29,6 +29,8 @@ class Content_Parts {
 	 */
 	public function __construct() {
 
+		include_once( Content_Parts_Plugin::dir( 'includes/settings.php' ) );
+
 		add_action( 'wp', array( $this, 'content_parts_query_vars' ) );
 		add_action( 'the_post', array( $this, 'the_post' ) );
 		add_filter( 'post_class', array( $this, 'post_class' ) );

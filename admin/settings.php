@@ -7,7 +7,7 @@
 
 add_action( 'plugins_loaded', array( 'Content_Parts_Admin_Settings', 'load' ) );
 
-class Content_Parts_Admin_Settings {
+class Content_Parts_Admin_Settings extends Content_Parts_Settings {
 
 	/**
 	 * Load
@@ -88,7 +88,7 @@ class Content_Parts_Admin_Settings {
 
 		echo '<ul>';
 		foreach ( $post_types as $post_type => $data ) {
-			printf( '<li><label><input name="content_parts_auto_format_post_types[]" id="content_parts_auto_format_post_types" type="checkbox" value="%1$s" ' . checked( true, in_array( $post_type, get_option( 'content_parts_auto_format_post_types' ) ), false ) . ' /> %2$s</label></li>', esc_attr( $post_type ), esc_html( $data->label ) );
+			printf( '<li><label><input name="content_parts_auto_format_post_types[]" id="content_parts_auto_format_post_types" type="checkbox" value="%1$s" ' . checked( true, self::is_auto_format_post_type( $post_type ), false ) . ' /> %2$s</label></li>', esc_attr( $post_type ), esc_html( $data->label ) );
 		}
 		echo '</ul>';
 
