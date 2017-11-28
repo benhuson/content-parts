@@ -91,21 +91,35 @@ class Content_Parts_Admin_Settings extends Content_Parts_Settings {
 
 			echo '<li>';
 
-			if ( self::is_filter_added_auto_format_post_type( $post_type ) ) {
-				printf( '<label><input name="content_parts_auto_format_post_types[]" id="content_parts_auto_format_post_types" type="checkbox" value="%1$s" ' . checked( true, self::is_auto_format_post_type( $post_type ), false ) . disabled( true, true, false ) . ' /> %2$s</label>', esc_attr( $post_type ), esc_html( $data->label ) );
-				echo ' <span class="description" style="opacity: 0.5;">(added via the theme or a plugin)</span>';
+			$is_filter_added = self::is_filter_added_auto_format_post_type( $post_type );
+			$is_filter_removed = self::is_filter_removed_auto_format_post_type( $post_type );
+
+			$description = '';
+			$disabled = false;
+
+			if ( $is_filter_added || $is_filter_removed ) {
+
+				// If filtered, use a hidden field to store original value.
 				if ( self::is_auto_format_post_type( $post_type, true ) ) {
 					echo '<input type="hidden" name="content_parts_auto_format_post_types[]" value="' .  esc_attr( $post_type ) . '" />';
 				}
-			} elseif ( self::is_filter_removed_auto_format_post_type( $post_type ) ) {
-				printf( '<label><input name="content_parts_auto_format_post_types[]" id="content_parts_auto_format_post_types" type="checkbox" value="%1$s" ' . checked( true, self::is_auto_format_post_type( $post_type ), false ) . disabled( true, true, false ) . ' /> %2$s</label>', esc_attr( $post_type ), esc_html( $data->label ) );
-				echo ' <span class="description" style="opacity: 0.5;">(removed via the theme or a plugin)</span>';
-				if ( self::is_auto_format_post_type( $post_type, true ) ) {
-					echo '<input type="hidden" name="content_parts_auto_format_post_types[]" value="' .  esc_attr( $post_type ) . '" />';
+
+				if ( $is_filter_added ) {
+					$description = esc_html__( '(added via the theme or a plugin)', 'content-parts' );
+				} elseif ( $is_filter_removed ) {
+					$description = esc_html__( '(removed via the theme or a plugin)', 'content-parts' );
 				}
-			} else {
-				printf( '<label><input name="content_parts_auto_format_post_types[]" id="content_parts_auto_format_post_types" type="checkbox" value="%1$s" ' . checked( true, self::is_auto_format_post_type( $post_type ), false ) . ' /> %2$s</label>', esc_attr( $post_type ), esc_html( $data->label ) );
+
+				if ( ! empty( $description ) ) {
+					$description = ' <span class="description" style="opacity: 0.5;">' . $description . '</span>';
+				}
+
+				$disabled = true;
+
 			}
+
+			// Main checkbox field
+			printf( '<label><input name="content_parts_auto_format_post_types[]" id="content_parts_auto_format_post_types" type="checkbox" value="%1$s" ' . checked( true, self::is_auto_format_post_type( $post_type ), false ) . disabled( true, $disabled, false ) . ' /> %2$s</label>%3$s', esc_attr( $post_type ), esc_html( $data->label ), $description );
 
 			echo '</li>';
 
@@ -207,14 +221,3 @@ class Content_Parts_Admin_Settings extends Content_Parts_Settings {
 	}
 
 }
-
-function my_content_parts_auto_format_post_types( $post_types ) {
-	foreach ( $post_types as $key => $post_type ) {
-		if ( 'post' == $post_type ) {
-			unset( $post_types[ $key ] );
-		}
-	}
-	$post_types[] = 'page';
-	return $post_types;
-}
-add_filter( 'content_parts_auto_format_post_types', 'my_content_parts_auto_format_post_types' );
