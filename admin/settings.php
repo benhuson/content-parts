@@ -68,8 +68,8 @@ class Content_Parts_Admin_Settings {
 	 */
 	public static function content_parts_settings_section() {
 
-		echo '<p>' . __( 'By default, post content will automatically be output in a series of HTML tags with <code>content-part</code> classes.', 'content-parts' ) . '<br />';
-		echo __( 'You can disable auto-formatting using the options below.', 'content-parts' ) . '</p>';
+		echo '<p>' . __( 'By default, content parts will not affect the output of post content.', 'content-parts' ) . '<br />';
+		echo __( 'If you would like to automatically output content parts as a series of HTML tags with <code>content-part</code> classes, enable this for specific post types below.', 'content-parts' ) . '</p>';
 
 	}
 
@@ -116,6 +116,8 @@ class Content_Parts_Admin_Settings {
 
 	/**
 	 * Whitelist Options
+	 *
+	 * Allow use of Settings API from admin theme page.
 	 *
 	 * @param   array  $options  Post types.
 	 * @return  array            Post types.
