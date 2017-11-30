@@ -204,6 +204,7 @@ class Content_Parts_Admin_Settings extends Content_Parts_Settings {
 
 		if ( Content_Parts_Plugin::basename() == $plugin_file ) {
 			$plugin_meta[] = sprintf( '<a href="https://github.com/benhuson/content-parts" target="github">%s</a>', __( 'GitHub', 'content-parts' ) );
+			$plugin_meta[] = sprintf( '<a href="https://github.com/benhuson/content-parts/wiki" target="github">%s</a>', __( 'Documentation', 'content-parts' ) );
 		}
 
 		return $plugin_meta;

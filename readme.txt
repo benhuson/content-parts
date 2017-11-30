@@ -12,7 +12,7 @@ Divide your post content into parts that you can show in different areas of your
 == Description ==
 If you want to spice up your theme layouts this plugin will allow you to show different parts of your content in different area of your theme templates - break out of a single column of content.
 
-More information can be found on the [Content Parts plugin page](http://www.benhuson.co.uk/wordpress-plugins/content-parts/).
+More information can be found on the [Content Parts plugin page](https://github.com/benhuson/content-parts/wiki).
 
 == Installation ==
 1. Download the archive file and uncompress it (or install it via your WordPress admin).
