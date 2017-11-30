@@ -55,7 +55,7 @@ class Content_Parts_Admin_Settings extends Content_Parts_Settings {
 	 */
 	public static function validate_post_types( $post_types ) {
 
-		array_map( 'sanitize_text_field', $post_types );
+		$post_types = array_map( 'sanitize_text_field', $post_types );
 
 		return $post_types;
 
