@@ -3,6 +3,8 @@
 /**
  * @package     Content Parts
  * @subpackage  Admin Settings Class
+ *
+ * @since  1.7
  */
 
 add_action( 'plugins_loaded', array( 'Content_Parts_Admin_Settings', 'load' ) );
@@ -11,6 +13,8 @@ class Content_Parts_Admin_Settings extends Content_Parts_Settings {
 
 	/**
 	 * Load
+	 *
+	 * @since  1.7
 	 */
 	public static function load() {
 
@@ -24,6 +28,8 @@ class Content_Parts_Admin_Settings extends Content_Parts_Settings {
 
 	/**
 	 * Register Settings
+	 *
+	 * @since  1.7
 	 *
 	 * @internal  Private. Called via the `admin_init` action.
 	 */
@@ -51,6 +57,8 @@ class Content_Parts_Admin_Settings extends Content_Parts_Settings {
 	/**
 	 * Validate Post Types
 	 *
+	 * @since  1.7
+	 *
 	 * @param   array  $post_types  Post types.
 	 * @return  array               Post types.
 	 */
@@ -69,6 +77,8 @@ class Content_Parts_Admin_Settings extends Content_Parts_Settings {
 	/**
 	 * Content Parts Section
 	 *
+	 * @since  1.7
+	 *
 	 * @internal  Private. Called via the `add_settings_section()` callback.
 	 */
 	public static function content_parts_settings_section() {
@@ -80,6 +90,8 @@ class Content_Parts_Admin_Settings extends Content_Parts_Settings {
 
 	/**
 	 * Post Types Field
+	 *
+	 * @since  1.7
 	 *
 	 * @internal  Private.  Called via the `add_settings_field()` callback.
 	 */
@@ -137,6 +149,8 @@ class Content_Parts_Admin_Settings extends Content_Parts_Settings {
 
 	/**
 	 * Auto-formatted HTML Example
+	 *
+	 * @since  1.7
 	 */
 	private static function auto_formatted_html_example() {
 
@@ -158,6 +172,8 @@ class Content_Parts_Admin_Settings extends Content_Parts_Settings {
 	 *
 	 * Allow use of Settings API from admin theme page.
 	 *
+	 * @since  1.7
+	 *
 	 * @param   array  $options  Post types.
 	 * @return  array            Post types.
 	 *
@@ -176,6 +192,8 @@ class Content_Parts_Admin_Settings extends Content_Parts_Settings {
 	 *
 	 * Adds settings link on the plugins page.
 	 *
+	 * @since  1.7
+	 *
 	 * @param   array  $actions  Plugin action links array.
 	 * @return  array            Plugin action links array.
 	 *
@@ -191,6 +209,8 @@ class Content_Parts_Admin_Settings extends Content_Parts_Settings {
 	/**
 	 * Admin Page
 	 *
+	 * @since  1.7
+	 *
 	 * @internal  Private. Called via the `admin_menu` action.
 	 */
 	public static function admin_page() {
@@ -201,6 +221,8 @@ class Content_Parts_Admin_Settings extends Content_Parts_Settings {
 
 	/**
 	 * Settings Page
+	 *
+	 * @since  1.7
 	 *
 	 * @internal  Private. Called via the `add_theme_page()` callback.
 	 */
@@ -234,6 +256,8 @@ class Content_Parts_Admin_Settings extends Content_Parts_Settings {
 	/**
 	 * Admin Notices
 	 *
+	 * @since  1.7
+	 *
 	 * @internal  Private. Called via the `admin_notices` action.
 	 */
 	public static function admin_notices() {
@@ -257,6 +281,8 @@ class Content_Parts_Admin_Settings extends Content_Parts_Settings {
 
 	/**
 	 * If Admin Screen?
+	 *
+	 * @since  1.7
 	 *
 	 * @param   array|string  $screen_id  Screen ID.
 	 * @return  boolean
