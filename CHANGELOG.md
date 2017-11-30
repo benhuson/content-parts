@@ -9,6 +9,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Added
 - Added settings page: Select post types to which `<div>` blocks will be automatically added.
+- Added admin notification if settings page has not been visited.
 - `content_parts_auto_format_post_types` filter added to enable override of admin settings.
 
 ## Changed
