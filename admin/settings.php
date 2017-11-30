@@ -18,6 +18,7 @@ class Content_Parts_Admin_Settings extends Content_Parts_Settings {
 		add_action( 'admin_menu', array( get_class(), 'admin_page' ) );
 		add_action( 'whitelist_options', array( get_class(), 'whitelist_options' ) );
 		add_filter( 'plugin_action_links_' . Content_Parts_Plugin::basename(), array( get_class(), 'plugin_action_links' ) );
+		add_filter( 'plugin_row_meta', array( get_class(), 'plugin_row_meta' ), 10, 2 );
 		add_action( 'admin_notices', array( get_class(), 'admin_notices' ) );
 
 	}
@@ -185,6 +186,27 @@ class Content_Parts_Admin_Settings extends Content_Parts_Settings {
 
 		$actions[] = sprintf( '<a href="%s">%s</a>', admin_url( 'themes.php?page=content_parts' ), __( 'Settings', 'content-parts' ) );
 		return $actions;
+
+	}
+
+	/**
+	 * Plugin Row Meta
+	 *
+	 * Adds documentation links below the plugin description on the plugins page.
+	 *
+	 * @since  1.7
+	 *
+	 * @param   array   $plugin_meta  Plugin meta display array.
+	 * @param   string  $plugin_file  Plugin reference.
+	 * @return  array                 Plugin meta array.
+	 */
+	public static function plugin_row_meta( $plugin_meta, $plugin_file ) {
+
+		if ( Content_Parts_Plugin::basename() == $plugin_file ) {
+			$plugin_meta[] = sprintf( '<a href="https://github.com/benhuson/content-parts" target="github">%s</a>', __( 'GitHub', 'content-parts' ) );
+		}
+
+		return $plugin_meta;
 
 	}
 
