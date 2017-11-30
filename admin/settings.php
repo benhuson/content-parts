@@ -18,6 +18,7 @@ class Content_Parts_Admin_Settings extends Content_Parts_Settings {
 		add_action( 'admin_menu', array( get_class(), 'admin_page' ) );
 		add_action( 'whitelist_options', array( get_class(), 'whitelist_options' ) );
 		add_filter( 'plugin_action_links_' . Content_Parts_Plugin::basename(), array( get_class(), 'plugin_action_links' ) );
+		add_action( 'admin_notices', array( get_class(), 'admin_notices' ) );
 
 	}
 
@@ -218,6 +219,32 @@ class Content_Parts_Admin_Settings extends Content_Parts_Settings {
 		</div>
 
 		<?php
+	}
+
+	/**
+	 * Admin Notices
+	 *
+	 * @internal  Private. Called via the `admin_notices` action.
+	 */
+	public function admin_notices() {
+
+		$screen = function_exists( 'get_current_screen' ) ? get_current_screen() : null;
+
+		// Only on dashboard and plugins screens
+		if ( ! $screen || ! in_array( $screen->id, array( 'dashboard', 'plugins' ) ) ) {
+			return;
+		}
+
+		if ( is_null( get_option( 'content_parts_auto_format_post_types', null ) ) ) {
+
+			?>
+			<div class="notice notice-info">
+				<p><?php printf( 'Please visit the Content Parts plugin <a%s>settings page</a> to configure options.', ' href="' . admin_url( 'themes.php?page=content_parts' ) . '"' ); ?></p>
+			</div>
+			<?php
+
+		}
+
 	}
 
 }
