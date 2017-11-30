@@ -18,6 +18,7 @@ class Content_Parts_Admin_Settings extends Content_Parts_Settings {
 		add_action( 'admin_menu', array( get_class(), 'admin_page' ) );
 		add_action( 'whitelist_options', array( get_class(), 'whitelist_options' ) );
 		add_filter( 'plugin_action_links_' . Content_Parts_Plugin::basename(), array( get_class(), 'plugin_action_links' ) );
+		add_action( 'admin_notices', array( get_class(), 'admin_notices' ) );
 
 	}
 
@@ -203,7 +204,13 @@ class Content_Parts_Admin_Settings extends Content_Parts_Settings {
 	 *
 	 * @internal  Private. Called via the `add_theme_page()` callback.
 	 */
-	public function settings_page() {
+	public static function settings_page() {
+
+		// Create option if not created when visiting settings screen
+		if ( self::is_admin_screen( 'appearance_page_content_parts' ) ) {
+			add_option( 'content_parts_auto_format_post_types', array() );
+		}
+
 		?>
 
 		<div class="wrap">
@@ -222,6 +229,58 @@ class Content_Parts_Admin_Settings extends Content_Parts_Settings {
 		</div>
 
 		<?php
+	}
+
+	/**
+	 * Admin Notices
+	 *
+	 * @internal  Private. Called via the `admin_notices` action.
+	 */
+	public static function admin_notices() {
+
+		// Only on dashboard and plugins screens
+		if ( ! self::is_admin_screen( array( 'dashboard', 'plugins' ) ) ) {
+			return;
+		}
+
+		if ( is_null( get_option( 'content_parts_auto_format_post_types', null ) ) ) {
+
+			?>
+			<div class="notice notice-info">
+				<p><?php printf( 'Please visit the Content Parts plugin <a%s>settings page</a> to configure options.', ' href="' . admin_url( 'themes.php?page=content_parts' ) . '"' ); ?></p>
+			</div>
+			<?php
+
+		}
+
+	}
+
+	/**
+	 * If Admin Screen?
+	 *
+	 * @param   array|string  $screen_id  Screen ID.
+	 * @return  boolean
+	 */
+	private static function is_admin_screen( $screen_id ) {
+
+		$screen = function_exists( 'get_current_screen' ) ? get_current_screen() : null;
+
+		if ( $screen ) {
+
+			// If array of screen IDs
+			if ( is_array( $screen_id ) && in_array( $screen->id, $screen_id ) ) {
+				return true;
+			}
+
+			// If single screen ID
+			if ( $screen->id == $screen_id ) {
+				return true;
+			}
+
+		}
+
+		return false;
+
 	}
 
 }
