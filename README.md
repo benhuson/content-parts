@@ -10,7 +10,7 @@ More information can be found on the [Content Parts plugin page](http://www.benh
 Documentation
 -------------
 
-For full details how to implement this plugin visit the [Content Parts plugin page](http://www.benhuson.co.uk/wordpress-plugins/content-parts/).
+For full details how to implement this plugin visit the [Content Parts plugin page](https://github.com/benhuson/content-parts/wiki).
 
 Installation
 ------------
