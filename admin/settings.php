@@ -200,12 +200,10 @@ class Content_Parts_Admin_Settings extends Content_Parts_Settings {
 	 *
 	 * @internal  Private. Called via the `add_theme_page()` callback.
 	 */
-	public function settings_page() {
-
-		$screen = function_exists( 'get_current_screen' ) ? get_current_screen() : null;
+	public static function settings_page() {
 
 		// Create option if not created when visiting settings screen
-		if ( $screen && 'appearance_page_content_parts' == $screen->id ) {
+		if ( self::is_admin_screen( 'appearance_page_content_parts' ) ) {
 			add_option( 'content_parts_auto_format_post_types', array() );
 		}
 
@@ -234,12 +232,10 @@ class Content_Parts_Admin_Settings extends Content_Parts_Settings {
 	 *
 	 * @internal  Private. Called via the `admin_notices` action.
 	 */
-	public function admin_notices() {
-
-		$screen = function_exists( 'get_current_screen' ) ? get_current_screen() : null;
+	public static function admin_notices() {
 
 		// Only on dashboard and plugins screens
-		if ( ! $screen || ! in_array( $screen->id, array( 'dashboard', 'plugins' ) ) ) {
+		if ( ! self::is_admin_screen( array( 'dashboard', 'plugins' ) ) ) {
 			return;
 		}
 
@@ -252,6 +248,34 @@ class Content_Parts_Admin_Settings extends Content_Parts_Settings {
 			<?php
 
 		}
+
+	}
+
+	/**
+	 * If Admin Screen?
+	 *
+	 * @param   array|string  $screen_id  Screen ID.
+	 * @return  boolean
+	 */
+	private static function is_admin_screen( $screen_id ) {
+
+		$screen = function_exists( 'get_current_screen' ) ? get_current_screen() : null;
+
+		if ( $screen ) {
+
+			// If array of screen IDs
+			if ( is_array( $screen_id ) && in_array( $screen->id, $screen_id ) ) {
+				return true;
+			}
+
+			// If single screen ID
+			if ( $screen->id == $screen_id ) {
+				return true;
+			}
+
+		}
+
+		return false;
 
 	}
 
