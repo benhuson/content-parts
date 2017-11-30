@@ -10,7 +10,7 @@ More information can be found on the [Content Parts plugin page](http://www.benh
 Documentation
 -------------
 
-For full details how to implement this plugin visit the [Content Parts plugin page](http://www.benhuson.co.uk/wordpress-plugins/content-parts/).
+For full details how to implement this plugin visit the [Content Parts plugin page](https://github.com/benhuson/content-parts/wiki).
 
 Installation
 ------------
@@ -26,6 +26,9 @@ If you are not performing an automatic upgrade, deactivate and reactivate the pl
 
 Upgrade Notice
 --------------
+
+### 1.7
+Remove automatic output of `<div>` blocks - broke styling on some some sites. Instead provide settings page and `content_parts_auto_format_post_types` filter.
 
 ### 1.6
 Automatically output `<div>` blocks around content parts in the main content on single posts and pages. Disable via the `content_parts_auto_content` filter.

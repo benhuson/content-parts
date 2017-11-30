@@ -3,8 +3,8 @@ Contributors: husobj
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=ZU69EJN4XBP3A
 Tags: content, layout, the_content, templates, theme, editor
 Requires at least: 3.9
-Tested up to: 4.9
-Stable tag: 1.6
+Tested up to: 4.9.1
+Stable tag: 1.7
 License: GPLv2 or later
 
 Divide your post content into parts that you can show in different areas of your theme templates.
@@ -12,7 +12,7 @@ Divide your post content into parts that you can show in different areas of your
 == Description ==
 If you want to spice up your theme layouts this plugin will allow you to show different parts of your content in different area of your theme templates - break out of a single column of content.
 
-More information can be found on the [Content Parts plugin page](http://www.benhuson.co.uk/wordpress-plugins/content-parts/).
+More information can be found on the [Content Parts plugin page](https://github.com/benhuson/content-parts/wiki).
 
 == Installation ==
 1. Download the archive file and uncompress it (or install it via your WordPress admin).
@@ -35,6 +35,14 @@ For full details how to implement this plugin visit the [Content Parts plugin pa
 == Changelog ==
 
 = Unreleased =
+
+= Content Parts 1.7 =
+
+* Don't Automatically output `<div>` blocks - broke styling on some some site.
+* Added settings page: Select post types to which `<div>` blocks will be automatically added.
+* Added admin notification if settings page has not been visited.
+* `content_parts_auto_format_post_types` filter added to enable override of admin settings.
+* Removed the `content_parts_auto_content` filter. Instead use the `content_parts_auto_format_post_types` filter.
 
 = Content Parts 1.6 =
 
@@ -76,6 +84,9 @@ For full details how to implement this plugin visit the [Content Parts plugin pa
 * First release.
 
 == Upgrade Notice ==
+
+= Content Parts 1.7 =
+Remove automatic output of `<div>` blocks - broke styling on some some sites. Instead provide settings page and `content_parts_auto_format_post_types` filter.
 
 = Content Parts 1.6 =
 Automatically output `<div>` blocks around content parts in the main content on single posts and pages. Disable via the `content_parts_auto_content` filter.
