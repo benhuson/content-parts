@@ -201,6 +201,14 @@ class Content_Parts_Admin_Settings extends Content_Parts_Settings {
 	 * @internal  Private. Called via the `add_theme_page()` callback.
 	 */
 	public function settings_page() {
+
+		$screen = function_exists( 'get_current_screen' ) ? get_current_screen() : null;
+
+		// Create option if not created when visiting settings screen
+		if ( $screen && 'appearance_page_content_parts' == $screen->id ) {
+			add_option( 'content_parts_auto_format_post_types', array() );
+		}
+
 		?>
 
 		<div class="wrap">
