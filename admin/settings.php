@@ -159,10 +159,10 @@ class Content_Parts_Admin_Settings extends Content_Parts_Settings {
 
 		echo '<pre class="code">';
 		echo esc_html( '<div class="content-part content-part-1">' . PHP_EOL );
-		echo esc_html( '	<!-- Part 1 Content -->' . PHP_EOL );
+		echo esc_html( '	<!-- ' . _x( 'Part 1 Content', 'Example content', 'content-parts' ) . ' -->' . PHP_EOL );
 		echo esc_html( '</div>' . PHP_EOL );
 		echo esc_html( '<div class="content-part content-part-2">' . PHP_EOL );
-		echo esc_html( '	<!-- Part 2 Content -->' . PHP_EOL );
+		echo esc_html( '	<!-- ' . _x( 'Part 2 Content', 'Example content', 'content-parts' ) . ' -->' . PHP_EOL );
 		echo esc_html( '</div>' . PHP_EOL );
 		echo '</pre>';
 
@@ -223,6 +223,7 @@ class Content_Parts_Admin_Settings extends Content_Parts_Settings {
 		if ( Content_Parts_Plugin::basename() == $plugin_file ) {
 			$plugin_meta[] = sprintf( '<a href="https://github.com/benhuson/content-parts" target="github">%s</a>', __( 'GitHub', 'content-parts' ) );
 			$plugin_meta[] = sprintf( '<a href="https://github.com/benhuson/content-parts/wiki" target="github">%s</a>', __( 'Documentation', 'content-parts' ) );
+			$plugin_meta[] = sprintf( '<a href="https://translate.wordpress.org/projects/wp-plugins/content-parts" target="wordpress-org">%s</a>', __( 'Translate', 'content-parts' ) );
 		}
 
 		return $plugin_meta;
@@ -238,7 +239,7 @@ class Content_Parts_Admin_Settings extends Content_Parts_Settings {
 	 */
 	public static function admin_page() {
 
-		add_theme_page( __( 'Content Parts', 'content-parts' ), __( 'Content Parts', 'content-parts' ), 'manage_options', 'content_parts', array( get_class(), 'settings_page' ) );
+		add_theme_page( _x( 'Content Parts', 'Admin menu title', 'content-parts' ), _x( 'Content Parts', 'Admin page title', 'content-parts' ), 'manage_options', 'content_parts', array( get_class(), 'settings_page' ) );
 
 	}
 
@@ -260,7 +261,7 @@ class Content_Parts_Admin_Settings extends Content_Parts_Settings {
 
 		<div class="wrap">
 			<div id="icon-options-general" class="icon32"><br /></div>
-			<h2><?php _e( 'Content Parts', 'content-parts' ) ?></h2>
+			<h2><?php _ex( 'Content Parts', 'Admin page title', 'content-parts' ) ?></h2>
 			<form method="post" action="options.php">
 				<?php
 
@@ -294,7 +295,7 @@ class Content_Parts_Admin_Settings extends Content_Parts_Settings {
 
 			?>
 			<div class="notice notice-info">
-				<p><?php printf( 'Please visit the Content Parts plugin <a%s>settings page</a> to configure options.', ' href="' . admin_url( 'themes.php?page=content_parts' ) . '"' ); ?></p>
+				<p><?php printf( __( 'Please visit the Content Parts plugin <a%s>settings page</a> to configure options.', 'content-parts' ), ' href="' . admin_url( 'themes.php?page=content_parts' ) . '"' ); ?></p>
 			</div>
 			<?php
 
