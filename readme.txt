@@ -38,6 +38,7 @@ For full details how to implement this plugin visit the [Content Parts plugin pa
 
 * Don't Automatically output `<div>` blocks - broke styling on some some.
 * Added settings page: Select post types to which `<div>` blocks will be automatically added.
+* Added admin notification if settings page has not been visited.
 * `content_parts_auto_format_post_types` filter added to enable override of admin settings.
 * Removed the `content_parts_auto_content` filter. Instead use the `content_parts_auto_format_post_types` filter.
 
