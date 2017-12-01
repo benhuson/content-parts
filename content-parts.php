@@ -8,6 +8,7 @@ Version: 1.7
 Author: Ben Huson
 Author URI: https://github.com/benhuson/content-parts
 Text Domain: content-parts
+Domain Path: /languages
 License: GPLv2 or later
 */
 
