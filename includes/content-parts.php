@@ -110,7 +110,7 @@ class Content_Parts {
 			$content = $this->the_content_parts( array(
 				'before' => '<div class="content-part content-part-%%part%%">',
 				'after'  => '</div>',
-				'wrap'   => '<div class="content-parts content-parts--%%count%%">%s</div>',
+				'wrap'   => '<div class="content-parts content-parts--%%count%%"><div class="content-parts__inner">%s</div></div>',
 				'echo'   => false
 			) );
 
