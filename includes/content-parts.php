@@ -110,6 +110,7 @@ class Content_Parts {
 			$content = $this->the_content_parts( array(
 				'before' => '<div class="content-part content-part-%%part%%">',
 				'after'  => '</div>',
+				'wrap'   => '<div class="content-parts content-parts--%%count%%">%s</div>',
 				'echo'   => false
 			) );
 
@@ -272,6 +273,7 @@ class Content_Parts {
 			'post_id' => null,
 			'before'  => '',
 			'after'   => '',
+			'wrap'    => '%s',
 			'start'   => 1,
 			'limit'   => 0,
 			'echo'    => true
@@ -285,6 +287,7 @@ class Content_Parts {
 		$output = '';
 
 		$count = 1;
+		$total = 0;
 		foreach ( $content_parts as $page ) {
 			if ( $count >= $pargs['start'] && ( $pargs['limit'] == 0 || $count < $pargs['start'] + $pargs['limit']  ) ) {
 				$content = force_balance_tags( $page );
@@ -293,9 +296,13 @@ class Content_Parts {
 				$before = str_replace( '%%part%%', $count, $my_args['before'] );
 				$after = str_replace( '%%part%%', $count, $my_args['after'] );
 				$output .= $before . $content . $after;
+				$total++;
 			}
 			$count++;
 		}
+
+		$wrap = str_replace( '%%count%%', $total, $pargs['wrap'] );
+		$output = sprintf( $wrap, $output );
 
 		// Output
 		if ( $pargs['echo'] ) {
