@@ -4,6 +4,11 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [1.8] - 2019-01-15
+
+### Added
+- Add wrapper divs around automatically output content parts.
+
 ## [1.7] - 2017-11-30
 
 ### Fixed
@@ -68,7 +73,8 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ### Added
 - First release.
 
-[Unreleased]: https://github.com/benhuson/content-parts/compare/1.7...HEAD
+[Unreleased]: https://github.com/benhuson/content-parts/compare/1.8...HEAD
+[1.7]: https://github.com/benhuson/content-parts/compare/1.7...1.8
 [1.7]: https://github.com/benhuson/content-parts/compare/1.6...1.7
 [1.6]: https://github.com/benhuson/content-parts/compare/1.5...1.6
 [1.5]: https://github.com/benhuson/content-parts/compare/1.4...1.5

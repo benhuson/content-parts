@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags: content, layout, the_content, templates, theme, editor
 Requires at least: 3.9
 Tested up to: 4.9.1
-Stable tag: 1.7
+Stable tag: 1.8
 License: GPLv2 or later
 
 Divide your post content into parts that you can show in different areas of your theme templates.
@@ -35,6 +35,10 @@ For full details how to implement this plugin visit the [Content Parts plugin pa
 == Changelog ==
 
 = Unreleased =
+
+= Content Parts 1.8 =
+
+* Add wrapper divs around automatically output content parts.
 
 = Content Parts 1.7 =
 
@@ -84,6 +88,9 @@ For full details how to implement this plugin visit the [Content Parts plugin pa
 * First release.
 
 == Upgrade Notice ==
+
+= Content Parts 1.8 =
+Added wrapper divs around automatically output content parts.
 
 = Content Parts 1.7 =
 Remove automatic output of `<div>` blocks - broke styling on some some sites. Instead provide settings page and `content_parts_auto_format_post_types` filter.
