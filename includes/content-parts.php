@@ -20,7 +20,7 @@ class Content_Parts {
 	 *
 	 * @var  array  Array of content part HTML.
 	 */
-	public $content_parts;
+	public $content_parts = array();
 
 	/**
 	 * Constructor
